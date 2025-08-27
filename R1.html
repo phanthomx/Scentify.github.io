@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScentiFy - Transform Your Natural Scent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)" opacity="0.6"><animate attributeName="cx" values="200;800;200" dur="20s" repeatCount="indefinite"/></circle><circle cx="800" cy="600" r="150" fill="url(%23a)" opacity="0.4"><animate attributeName="cy" values="600;200;600" dur="25s" repeatCount="indefinite"/></circle><circle cx="500" cy="400" r="80" fill="url(%23a)" opacity="0.7"><animate attributeName="r" values="80;120;80" dur="15s" repeatCount="indefinite"/></circle></svg>') center/cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 4rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tech-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .tech-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .fragrance-families {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 80px 20px;
+            color: white;
+        }
+
+        .fragrance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 3rem;
+        }
+
+        .fragrance-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .fragrance-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .fragrance-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .fragrance-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .fragrance-examples {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .notes-section {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .notes-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .notes-pyramid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 3rem;
+        }
+
+        .note-layer {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+        }
+
+        .note-layer:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .top-notes {
+            border-left-color: #ff6b6b;
+        }
+
+        .middle-notes {
+            border-left-color: #4ecdc4;
+        }
+
+        .base-notes {
+            border-left-color: #45b7d1;
+        }
+
+        .note-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .note-duration {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Responsive image styles */
+        .image-landscape {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            margin: 40px 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .image-portrait-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .image-portrait {
+            width: 280px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 4px solid white;
+            animation: floatUp 1.5s ease-out;
+        }
+
+        /* Animation for images */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(30px) rotate(3deg); }
+            100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="logo">ScentiFy</h1>
+            <p class="tagline">Revolutionary Bio-Technology That Transforms Sweat Into Beautiful Fragrance</p>
+            <a href="#technology" class="cta-button">Discover The Science</a>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Science Visualizer Image (Landscape 1536x1024) -->
+    <!-- <div style="max-width: 1536px; margin: 0 auto; padding: 0 20px;">
+        <img src="https://source.unsplash.com/random/1536x1024/?biotech,fragrance,science,lab" 
+             alt="ScentiFy Bio-Technology in Action" 
+             class="image-landscape">
+    </div> -->
+
+    <!-- Technology Section -->
+    <section id="technology" class="section">
+        <h2 class="section-title">🔬 Our Revolutionary Technologies</h2>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <span class="tech-icon">🧪</span>
+                <h3 class="tech-title">Enzymatic Fragrance Release</h3>
+                <p class="tech-description">Advanced enzymes activate upon contact with sweat components, triggering encapsulated fragrance precursors to convert into aromatic compounds through biochemical reactions.</p>
+            </div>
+            
+            <div class="tech-card">
+                <span class="tech-icon">🌡️</span>
+                <h3 class="tech-title">pH-Activated Capsules</h3>
+                <p class="tech-description">Smart microcapsules respond to sweat's acidic pH (4-6), dissolving to release carefully curated fragrance oils exactly when your body needs them most.</p>
+            </div>
+            
+            <div class="tech-card">
+                <span class="tech-icon">🌬️</span>
+                <h3 class="tech-title">Thermo-Responsive Release</h3>
+                <p class="tech-description">Temperature-sensitive hydrogels melt when body heat increases during sweating, creating a controlled release of volatile essential oils.</p>
+            </div>
+            
+            <div class="tech-card">
+                <span class="tech-icon">🧪</span>
+                <h3 class="tech-title">Smart Polymer Matrix</h3>
+                <p class="tech-description">Moisture-sensitive polymers form a protective film that swells upon sweat contact, slowly releasing encapsulated scent molecules for long-lasting fragrance.</p>
+            </div>
+            
+            <div class="tech-card">
+                <span class="tech-icon">🦠</span>
+                <h3 class="tech-title">Probiotic Fragrance Production</h3>
+                <p class="tech-description">Engineered skin-safe probiotics metabolize sweat components into pleasant-smelling esters and compounds, naturally transforming your body's chemistry.</p>
+            </div>
+            
+            <div class="tech-card">
+                <span class="tech-icon">⚗️</span>
+                <h3 class="tech-title">Adaptive Scent Masking</h3>
+                <p class="tech-description">Cyclodextrin-based odor neutralizers activate with sweat intensity, releasing adaptive fragrances that match your activity level and environment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragrance Families Section -->
+    <section class="fragrance-families">
+        <div class="section">
+            <h2 class="section-title" style="color: white;">🌸 Fragrance Families</h2>
+            <div class="fragrance-grid">
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🌸</span>
+                    <div class="fragrance-name">Floral</div>
+                    <div class="fragrance-examples">Rose, Jasmine, Lavender, Lily</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🍋</span>
+                    <div class="fragrance-name">Citrus</div>
+                    <div class="fragrance-examples">Lemon, Bergamot, Grapefruit, Orange</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🍑</span>
+                    <div class="fragrance-name">Fruity</div>
+                    <div class="fragrance-examples">Apple, Peach, Mango, Berry</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🌳</span>
+                    <div class="fragrance-name">Woody</div>
+                    <div class="fragrance-examples">Sandalwood, Cedar, Vetiver</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🌶️</span>
+                    <div class="fragrance-name">Oriental</div>
+                    <div class="fragrance-examples">Vanilla, Amber, Musk, Cinnamon</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🌿</span>
+                    <div class="fragrance-name">Green</div>
+                    <div class="fragrance-examples">Mint, Basil, Green Tea, Eucalyptus</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🌊</span>
+                    <div class="fragrance-name">Aquatic</div>
+                    <div class="fragrance-examples">Sea Breeze, Marine, Rainwater</div>
+                </div>
+                
+                <div class="fragrance-card">
+                    <span class="fragrance-icon">🍫</span>
+                    <div class="fragrance-name">Gourmand</div>
+                    <div class="fragrance-examples">Chocolate, Coffee, Caramel, Honey</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragrance Notes Section -->
+    <section class="notes-section">
+        <div class="notes-container">
+            <h2 class="section-title">🎶 Fragrance Architecture</h2>
+            <div class="notes-pyramid">
+                <div class="note-layer top-notes">
+                    <div class="note-title">Top Notes</div>
+                    <div class="note-duration">First impression • 10-20 minutes</div>
+                    <p>Citrus, light fruits, herbs - Quick freshness after sweating</p>
+                </div>
+                
+                <div class="note-layer middle-notes">
+                    <div class="note-title">Middle Notes (Heart)</div>
+                    <div class="note-duration">Body of scent • 2-4 hours</div>
+                    <p>Florals, spices, green tea - Sustained pleasant aroma</p>
+                </div>
+                
+                <div class="note-layer base-notes">
+                    <div class="note-title">Base Notes</div>
+                    <div class="note-duration">Foundation • Long-lasting</div>
+                    <p>Woods, musk, vanilla - Deep, enduring fragrance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Portrait Image -->
+    <section class="about-section">
+        <div class="section">
+            <h2 class="section-title" style="color: white;">About ScentiFy</h2>
+            
+            <!-- Portrait Image (1024x1536) -->
+            <div class="image-portrait-container">
+                <img src="SC.png" 
+                     alt="Confident person using ScentiFy technology" 
+                     class="image-portrait">
+            </div>
+
+            <div class="about-content">
+                <p>ScentiFy represents the future of personal care, where biotechnology meets beauty. Our revolutionary approach transforms the natural process of perspiration into an opportunity for enchanting fragrance release.</p>
+                <br>
+                <p>By harnessing cutting-edge enzyme technology, smart polymers, and bio-responsive materials, we've created the world's first sweat-activated fragrance system. No longer will you worry about odor - instead, embrace activity knowing that every movement brings delightful scent.</p>
+                <br>
+                <p>From enzymatic reactions to pH-responsive capsules, ScentiFy's multi-layered technology adapts to your body's natural rhythms, creating a personalized aromatic experience that evolves throughout your day.</p>
+            </div>
+
+                <!-- Science Visualizer Image (Landscape 1536x1024) -->
+    <div style="max-width: 1536px; margin: 0 auto; padding: 0 20px;">
+        <img src="Ws.png" 
+             alt="ScentiFy Bio-Technology in Action" 
+             class="image-landscape">
+    </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#">📧</a>
+            <a href="#">📱</a>
+            <a href="#">🐦</a>
+            <a href="#">📘</a>
+        </div>
+        <p>&copy; 2025 ScentiFy. Transforming the future of fragrance technology.</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Where Science Meets Scent</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#technology').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.tech-card, .fragrance-card, .note-layer').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Dynamic gradient animation
+        let gradientAngle = 135;
+        setInterval(() => {
+            gradientAngle += 1;
+            if (gradientAngle > 225) gradientAngle = 135;
+            document.querySelector('.hero').style.background = 
+                `linear-gradient(${gradientAngle}deg, #667eea 0%, #764ba2 100%)`;
+        }, 50);
+    </script>
+</body>
+</html>
