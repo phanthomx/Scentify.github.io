@@ -1,2 +1,0 @@
-# Scentify.github.io
-Rudra
